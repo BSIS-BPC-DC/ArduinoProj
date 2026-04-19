@@ -1,0 +1,77 @@
+Wiring Overview
+
+Button Pin 2 LED → Pin 13 Buzzer → Pin 12
+
+How It Works
+
+1. Each button press simulates a login attempt. 2. Arduino counts attempts within a time window. If attempts exceed threshold, alarm triggers.
+
+4. System resets after alert.
+
+Detection Logic
+
+If 5 or more attempts occur within 10 seconds, the system identifies it as a brute-force attack.
+
+Arduino Code
+
+const int buttonPin = 2;
+
+const int ledPin 13: const int buzzerPin = 12:
+
+int attemptCount = 0;
+
+unsigned long firstAttemptTime = 0;
+
+const int maxAttempts = 5;
+
+const unsigned long timeWindow 10000;
+
+void setup() {
+
+} pinMode(buttonPin, INPUT_PULLUP); pinMode(ledPin, OUTPUT); pinMode(buzzerPin, OUTPUT); Serial.begin(9600);
+
+void loop() {
+
+if (digitalRead(buttonPin) == LOW) { delay(200);
+
+1t (attemptCount == 0) { firstAttemptTime = millis();
+
+attemptCount++;
+
+Serial.println(attemptCount);
+
+if (millis() firstAttemptTime <= timewindow) {
+
+if (attemptCount >= maxAttempts) {
+
+}
+
+triggerAlert();
+
+} else { resetAttempts();
+
+}
+
+}
+
+void triggerAlert() { digitalWrite(ledPin, HIGH);
+
+}
+
+tone(buzzerPin, 1000);
+
+delay(3000):
+
+digitalWrite(ledPin, LOW); noTone(buzzerPin);
+
+resetAttempts();
+
+void resetAttempts() {
+
+attemptCount = 0;
+
+1
+
+Applications
+
+Cybersecurity education Smart lock systems Intrusion detection prototypes
